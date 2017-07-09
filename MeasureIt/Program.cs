@@ -69,6 +69,11 @@ namespace MeasureIt
             var stats = new Stats();
             for (int i = 0; i < 20; i++)
             {
+                if (stats.StopAfter(3000, 250))
+                {
+                    Console.WriteLine("Stopped condition fired at iteration " + i);
+                    break;
+                }
                 var input = rnd.Next(500);
                 var measure = await measuring.measure(polling, input);
                 Console.WriteLine("Input " + input + 
@@ -76,10 +81,6 @@ namespace MeasureIt
                 Console.WriteLine(measure.success ? "success" : "failure");
                 Console.WriteLine(measure.success ? measure.output : measure.error.Message);
                 stats.addEvent(measure.elapsed.Milliseconds);
-                if (stats.StopAfter(2000,250))
-                {
-                    break;
-                }
             }
             return stats;
         }
