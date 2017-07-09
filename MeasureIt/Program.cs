@@ -39,6 +39,15 @@ namespace MeasureIt
             {
                 return devStd;
             }
+
+            public bool StopAfter(int maxMilliSecs, double defEstimate)
+            {
+                if (totEvents == 0)
+                {
+                    return defEstimate >= maxMilliSecs;
+                }
+                return totDuration + mean + devStd > maxMilliSecs;
+            }
         }
         static void Main(string[] args)
         {
@@ -67,6 +76,10 @@ namespace MeasureIt
                 Console.WriteLine(measure.success ? "success" : "failure");
                 Console.WriteLine(measure.success ? measure.output : measure.error.Message);
                 stats.addEvent(measure.elapsed.Milliseconds);
+                if (stats.StopAfter(2000,250))
+                {
+                    break;
+                }
             }
             return stats;
         }
