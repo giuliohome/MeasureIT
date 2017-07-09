@@ -29,10 +29,5 @@ namespace MeasureItLib
             ret.elapsed = timer.Elapsed;
             return ret;
         }
-
-        public Task<PollingReturn<string, Exception>> measure(PollImpl polling, int input)
-        {
-            return measure(polling, input);
-        }
     }
 }
