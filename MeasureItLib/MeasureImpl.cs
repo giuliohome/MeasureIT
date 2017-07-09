@@ -14,9 +14,8 @@ namespace MeasureItLib
         {
             var timer = new Stopwatch();
             timer.Start();
-            PollingReturn<string, Exception> ret = new PollingReturn<string, Exception>();
-            Task<string> pollingTask;
-            pollingTask = polling.poll(input);
+            var ret = new PollingReturn<string, Exception>();
+            var pollingTask = polling.poll(input);
             try
             {
                 ret.output = await pollingTask;
